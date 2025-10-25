@@ -14,6 +14,8 @@ format:
         data-background-position: "top right"
         data-background-size: auto
 editor: visual
+editor_options: 
+  chunk_output_type: console
 ---
 
 ##  {background="#43464B" background-video="video/world.mp4" background-video-loop="true" background-video-muted="true"}
@@ -26,7 +28,7 @@ editor: visual
 
 ## Much of what we know about human behavior...
 
-::: columns
+:::::: columns
 ::: {.column width="45%"}
 ...is based on what people tell us:
 
@@ -45,7 +47,7 @@ editor: visual
 ::: {.column width="45%"}
 ![](img/survey.jpg)
 :::
-:::
+::::::
 
 ## But a lot of (mass) communication looks like this...
 
@@ -69,7 +71,7 @@ This is what we will discuss in this course!
 
 ## Objectives and Learning goals
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 After completion of the course, you will...
 
@@ -83,11 +85,11 @@ After completion of the course, you will...
 ::: {.column width="50%"}
 ![](https://miro.medium.com/v2/resize:fit:708/1*UBQsA95cecKRUxLNFbXf4g.png)
 :::
-:::
+:::::
 
 ## Skills and methods
 
-::: columns
+:::::: columns
 ::: {.column width="55%"}
 With regard to the specific methods being taught in R, you will be able to...
 
@@ -108,33 +110,30 @@ With regard to the specific methods being taught in R, you will be able to...
 ::: {.column width="40%"}
 ![](img/example_ML.png)
 :::
-:::
+::::::
 
 ## Who am I?
 
--   Assistant Professor of Communication Science
+-   Professor of Computational Communication Science & Political Communication
 
 -   Research Interest
 
-    -   Privacy & Data Protection Online
-    -   Social Influence and Contagion
-    -   Media Literacy
+    -   Effects of (social) media consumption
+    -   Changing patterns of media consumption & production
 
 -   Methodological Interests
 
-    -   Scale Development and Validation
-    -   Bayesian Statistics
-    -   Flexibility in Data Analysis
     -   Computational Methods and Machine Learning
-    
-- More info: www.philippmasur.de
+    -   Text (and multimedia) analysis
+    -   Data Donation
 
+-   More info: https://vanatteveldt.com
 
-![](img/philipp.jpeg){.absolute bottom="150" right="100" width="300"}
+![](img/wouter_van_atteveldt.png){.absolute bottom="150" right="100" width="200"}
 
 ## Content of this lecture {.smaller}
 
-::: columns
+:::::: columns
 ::: {.column width="45%"}
 1.  What is Computational Social Science?
 
@@ -154,24 +153,21 @@ With regard to the specific methods being taught in R, you will be able to...
 
     2.3. Examples of Computational Communication Research
 
-
 3.  Introduction to Automated Text Analysis
 
     3.1. Text as Data
 
     3.2. The General Text Classification Pipeline
-    
+
     3.3. Timeline of Natural Language Processing
 
     3.3. A Small Example
-    
 :::
 
 ::: {.column width="5%"}
 :::
 
 ::: {.column width="45%"}
-
 4.  Ethics of Computational Communication Research
 
     4.1. A Controversional Study (Kramer et al., 2014)
@@ -188,7 +184,7 @@ With regard to the specific methods being taught in R, you will be able to...
 
     5.3. Attendance and Assignments
 :::
-:::
+::::::
 
 # What is Computational Social Science? {background-color="steelblue"}
 
@@ -196,7 +192,7 @@ With regard to the specific methods being taught in R, you will be able to...
 
 ## Example: Surprising Sources of Information
 
-::: columns
+:::::: columns
 ::: {.column width="45%"}
 -   In 2009, researchers wanted to study wealth and poverty in Rwanda
 
@@ -217,7 +213,7 @@ With regard to the specific methods being taught in R, you will be able to...
 
 -   They also estimated the places of residence based on the geographic information embedded in call records
 :::
-:::
+::::::
 
 <br>
 
@@ -260,23 +256,24 @@ td {
 }
 </style>
 ```
-| \#  | Characteristic | Description                                                                                                                                                                                                                                                                       |
-|---------|:--------|:------------------------------------------------------|
-| 1   | Big            | The scale or volume of some current data sets is often impressive. However, big data sets are not an end in themselves, but they can enable certain kinds of research including the study of rare events, the estimation of heterogeneity, and the detection of small differences |
-| 2   | Always-on      | Many big data systems are constantly collecting data and thus enable to study unexpected events and allow for real-time measurement                                                                                                                                               |
-| 3   | Nonreactive    | Participants are generally not aware that their data are being captured or they have become so accustomed to this data collection that it no longer changes their behavior.                                                                                                       |
-| 4   | Incomplete     | Most big data sources are incomplete, in the sense that they don't have the information that you will want for your research. This is a common feature of data that were created for purposes other than research.                                                                |
-| 5   | Inaccessible   | Data held by companies and governments are difficult for researchers to access.                                                                                                                                                                                                   |
+
+| \# | Characteristic | Description |
+|-------------|:------------|:----------------------------------------------|
+| 1 | Big | The scale or volume of some current data sets is often impressive. However, big data sets are not an end in themselves, but they can enable certain kinds of research including the study of rare events, the estimation of heterogeneity, and the detection of small differences |
+| 2 | Always-on | Many big data systems are constantly collecting data and thus enable to study unexpected events and allow for real-time measurement |
+| 3 | Nonreactive | Participants are generally not aware that their data are being captured or they have become so accustomed to this data collection that it no longer changes their behavior. |
+| 4 | Incomplete | Most big data sources are incomplete, in the sense that they don't have the information that you will want for your research. This is a common feature of data that were created for purposes other than research. |
+| 5 | Inaccessible | Data held by companies and governments are difficult for researchers to access. |
 
 ## 10 Characteristics of Big Data
 
-| \#  | Characteristic                 | Description                                                                                                                                   |
-|------------|:-----------|:------------------------------------------------|
-| 6   | Nonrepresentative              | Most big datasets are nonetheless not representative of certain populations. Out-of-sample generalizations are hence difficult or impossible. |
-| 7   | Drifting                       | Many big data systems are changing constantly, thus making it difficult to study long-term trends                                             |
-| 8   | Algorithmically <br>confounded | Behavior in big data systems is not natural; it is driven by the engineering goals of the systems.                                            |
-| 9   | Dirty                          | Big data often includes a lot of noise (e.g., junk, spam, spurious data points...)                                                            |
-| 10  | Sensitive                      | Some of the information that companies and governments have is sensitive.                                                                     |
+| \# | Characteristic | Description |
+|---------------|:--------------|:------------------------------------------|
+| 6 | Nonrepresentative | Most big datasets are nonetheless not representative of certain populations. Out-of-sample generalizations are hence difficult or impossible. |
+| 7 | Drifting | Many big data systems are changing constantly, thus making it difficult to study long-term trends |
+| 8 | Algorithmically <br>confounded | Behavior in big data systems is not natural; it is driven by the engineering goals of the systems. |
+| 9 | Dirty | Big data often includes a lot of noise (e.g., junk, spam, spurious data points...) |
+| 10 | Sensitive | Some of the information that companies and governments have is sensitive. |
 
 <br><br>
 
@@ -284,7 +281,7 @@ td {
 
 ## Pro's and Con's of Computational Methods
 
-::: columns
+:::::: columns
 ::: {.column width="45%"}
 **Opportunities**
 
@@ -306,7 +303,7 @@ td {
 -   Often, data have only insufficient metadata
 -   Risks of no longer understanding the models we use (black box)
 :::
-:::
+::::::
 
 # Computational Communication Science {background-color="steelblue"}
 
@@ -314,7 +311,7 @@ Why computational methods are important for communication research...
 
 ## Definition
 
-::: columns
+::::: columns
 ::: {.column width="70%"}
 <br>
 
@@ -328,11 +325,11 @@ Why computational methods are important for communication research...
 ::: {.column width="30%"}
 ![](img/ccr__cover_hr.png)
 :::
-:::
+:::::
 
 ## Typical research areas
 
-::: columns
+:::::: columns
 ::: {.column width="47.5%"}
 Computational communication science studies thus usually involve:
 
@@ -365,11 +362,11 @@ Computational communication science studies thus usually involve:
     -   News coverage across decades
     -   Gender equality
 :::
-:::
+::::::
 
 ## Example 1: Analyzing News Coverage
 
-::: columns
+::::: columns
 ::: {.column width="35%"}
 -   Jacobi and colleagues (2016) analyzed the coverage of nuclear technology from 1945 to 2014 in the New York Times
 
@@ -381,7 +378,7 @@ Computational communication science studies thus usually involve:
 ::: {.column width="65%"}
 ![](img/Jacobi_topicmodelling.png)
 :::
-:::
+:::::
 
 ## Example 2: Facebook Data to Predict Personality
 
@@ -389,7 +386,7 @@ Computational communication science studies thus usually involve:
 
 -   Were able to show that one can predict a variety of personal characteristics and personality traits from simple Facebook likes
 
-::: columns
+:::::: columns
 ::: {.column width="38%"}
 ![](img/kosinski_personality3.png){width="75%"}
 :::
@@ -400,11 +397,11 @@ Computational communication science studies thus usually involve:
 ::: {.column width="48%"}
 ![](img/kosinski_personality1.png){width="75%"}
 :::
-:::
+::::::
 
 ## Example 3: Gender representation in TV
 
-::: columns
+::::: columns
 ::: {.column width="35%"}
 -   Women on average remained underrepresented on TV, with 6.3 million female faces out of 16 million total (estimated proportion .39, 95% CI: .37-.42)
 
@@ -414,7 +411,7 @@ Computational communication science studies thus usually involve:
 ::: {.column width="65%"}
 ![](img/juergen_face2.png)
 :::
-:::
+:::::
 
 # Introduction to Automated Text Analysis {background-color="steelblue"}
 
@@ -436,7 +433,7 @@ library(ggwordcloud)
 
 <br><br>
 
-::: columns
+:::::: columns
 ::: {.column width="47.5%"}
 **Experimental data**
 
@@ -479,11 +476,11 @@ A company owned by Thiel had lodged a consent application for a sprawling lodge 
   head()
 ```
 :::
-:::
+::::::
 
 ## Traditional *text* analysis
 
-::: columns
+::::: columns
 ::: {.column width="55%"}
 -   Choosing the texts that contain the content and one wants to analyze (1)
 
@@ -501,7 +498,7 @@ A company owned by Thiel had lodged a consent application for a sprawling lodge 
 ::: {.column width="45%"}
 ![](https://www.researchgate.net/publication/290265437/figure/fig1/AS:445388512600066@1483200304706/Process-flow-of-a-structured-content-analysis-Mayring-2008-84.png)
 :::
-:::
+:::::
 
 **Problem:** Requires a lot of work and there are always more texts than humans can possibly code manually!
 
@@ -559,7 +556,7 @@ A company owned by Thiel had lodged a consent application for a sprawling lodge 
 
 ## A short overview of linguistics
 
-::: columns
+:::::: columns
 ::: {.column width="63%"}
 -   Each field studies a *different level* at which language exhibits organization
 
@@ -567,7 +564,7 @@ A company owned by Thiel had lodged a consent application for a sprawling lodge 
 
 -   In classic machine learning, they often depend on the morphological characteristics of language, such as when text is broken into sequences of characters, words, sentences
 
--   In modern approaches (e.g. using LLMs), it also involves syntactical and pragmatic characteristics. IN case of audio-text transformation also phonetical or phonological characteristics!
+-   In modern approaches (e.g. using LLMs), it also involves syntactical and pragmatic characteristics. In case of audio-text transformation also phonetical or phonological characteristics!
 
 <br>
 
@@ -587,7 +584,7 @@ A company owned by Thiel had lodged a consent application for a sprawling lodge 
 | Semantics  | What sentences mean                       |
 | Pragmatics | How language is used in context           |
 :::
-:::
+::::::
 
 ## Morphology
 
@@ -601,12 +598,12 @@ A company owned by Thiel had lodged a consent application for a sprawling lodge 
 
 <center>
 
-| Type of Feature | Example                                                    |
-|:-----------------|:-----------------------------------------------------|
-| Sentence        | "Include Your Children When Baking Cookies"                |
-| Word            | "Include", "Your", "Children", "When", "Baking", "Cookies" |
-| Bigrams         | "Include", "Your Children", "When", "Baking Cookies"       |
-| n-grams         | "Include Your Children", "When Baking Cookies"             |
+| Type of Feature | Example |
+|:------------------|:----------------------------------------------------|
+| Sentence | "Include Your Children When Baking Cookies" |
+| Word | "Include", "Your", "Children", "When", "Baking", "Cookies" |
+| Bigrams | "Include", "Your Children", "When", "Baking Cookies" |
+| n-grams | "Include Your Children", "When Baking Cookies" |
 
 </center>
 
@@ -715,7 +712,7 @@ A Framework for this Course
 
 ![](img/text_analysis_fundamentals/validation.png){.absolute top="10" right="0" width="260"}
 
-::: columns
+:::::: columns
 ::: {.column width="55%"}
 -   Many text analysis processes are 'black boxes'
 
@@ -740,7 +737,7 @@ A Framework for this Course
 ::: {.column width="40%"}
 ![](https://miro.medium.com/v2/resize:fit:1400/1*fxiTNIgOyvAombPJx5KGeA.png){.absolute top="270" right="0" width="400"}
 :::
-:::
+::::::
 
 ## TIMELINE OF NATURAL LANGUAGE PROCESSING
 
@@ -804,10 +801,10 @@ How this course is going to work?
 
 ## Teachers
 
-|                             Dr. Philipp K. Masur                             |     |                              Dr. Kaspar Welbers                               |     |                                  Emma<br>Diel                                  |     |                                  Roan<br>Buma                                  |
+| Dr. Philipp K. Masur |   | Dr. Kaspar Welbers |   | Emma<br>Diel |   | Roan<br>Buma |
 |:---------:|-----------|:---------:|-----------|:---------:|-----------|:---------:|
-| ![](https://dmb-lab.nl/wp-content/uploads/2024/07/AGU5929_Philipp-Masur.jpg) |     | ![](https://dmb-lab.nl/wp-content/uploads/2024/07/AGU5119-Kasper-Welbers.jpg) |     | ![](https://research.vu.nl/files-asset/318853298/_AGU6410.jpg?w=160&f=webp) |     | ![](https://research.vu.nl/files-asset/321701863/_AGU6124.jpg?w=160&f=webp) |
-|                        Lecturer & Course Coordinator                         |     |                                    Teacher                                    |     |                                   Teacher                                   |     |                                   Teacher                                   |
+| ![](https://dmb-lab.nl/wp-content/uploads/2024/07/AGU5929_Philipp-Masur.jpg) |  | ![](https://dmb-lab.nl/wp-content/uploads/2024/07/AGU5119-Kasper-Welbers.jpg) |  | ![](https://research.vu.nl/files-asset/318853298/_AGU6410.jpg?w=160&f=webp) |  | ![](https://research.vu.nl/files-asset/321701863/_AGU6124.jpg?w=160&f=webp) |
+| Lecturer & Course Coordinator |  | Teacher |  | Teacher |  | Teacher |
 
 ## R help desk
 
@@ -821,7 +818,7 @@ How this course is going to work?
 
 ## Information and Materials
 
-::: columns
+:::::: columns
 ::: {.column width="45%"}
 The major hub for this course is the following website:
 
@@ -838,7 +835,7 @@ Communication and assignment submission via Canvas:
 ::: {.column width="45%"}
 ![](img/course_screenshot.png)
 :::
-:::
+::::::
 
 ## Course Schedule
 

@@ -24,14 +24,14 @@ tribble(~Class, ~Teacher, ~Time,
   kable(format = "html") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
   kable_styling(fixed_thead = T) %>%
-  column_spec(1, bold = T, width = "12em") %>%
+  column_spec(1, bold = T, width = "15em") %>%
   row_spec(0, color = "white", background = "#39423E")
 ```
 
 
 See the [schedule website](https://rooster.vu.nl) for rooms
 
-Sessions marked (AI) are reserved for students AI & Governance. CS/CW are bilingual sessions in the English and Dutch tracks of communication science. Session 6 (CW) is in Dutch only. Of course, students in the Dutch track are free to communicate with the teacher in Dutch. Groups 2, 4 and 8 have been merged into other groups due to lower student numbers than expected. 
+Sessions 3 and 7 (AI) are reserved for students AI & Governance. Sessions 1 and 5 (CS/CW) are bilingual sessions in the English and Dutch tracks of communication science. Of course, students in the Dutch track are free to ask questions and communicate with the teacher in Dutch. Session 6 (CW) is in Dutch only. Sessions 2, 4 and 8 have been merged into other groups due to lower student numbers than expected. 
 
 <br>
 <hr>

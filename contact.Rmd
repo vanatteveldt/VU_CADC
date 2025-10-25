@@ -2,21 +2,28 @@
 title: "Contact"
 ---
 
-Do you have any questions? Please contact us via mail.
+Do you have any questions? Please send an email to [Damien Prins](d.s.prins@student.vu.nl) (student assistent).
+
+In sensitive matters (only!), mail [Wouter van Atteveldt](wouter.van.atteveldt@vu.nl). 
 
 <br>
 
-### Coordinator
+### Coordinators
 
-- Philipp Masur | p.k.masur@vu.nl
+- Wouter van Atteveldt
+- Gianni Quaedvlieg
 
 ### Teachers
 
-- Philipp Masur 
+- Wouter van Atteveldt 
+- Gianni Quaedvlieg
 - Kasper Welbers
-- Emma Diel
-- Roan Buma
+- Sophia Gil-Calvel
+- Alberto López-Ortega
 
+### Student assistant
+
+- Damien Prins
 
 <p style = "margin-left: auto; margin-right: 0;">
 This course is published under the following [license](https://github.com/masurp/VU_CADC/blob/main/LICENSE.md). 

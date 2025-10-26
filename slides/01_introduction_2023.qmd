@@ -1,7 +1,7 @@
 ---
 title: "Computational Analysis of Digital Communication"
 subtitle: "Week 1: Introduction to Computational Methods in Communication Science"
-author: "Dr. Philipp K. Masur"
+author: "Prof. Dr. Wouter van Atteveldt"
 format:
   revealjs: 
     theme: [default, theme.scss]
@@ -17,6 +17,23 @@ editor: visual
 editor_options: 
   chunk_output_type: console
 ---
+
+<style>
+.people-table {
+  table-layout: fixed;
+  width: 100%;
+}
+.people-table td {
+  width: 12.5%; /* or however many columns you have */
+  text-align: center;
+  vertical-align: top;
+}
+.people-table td img {
+  width: 150px;
+  height: 225px;
+  object-fit: cover;
+}
+</style>
 
 ##  {background="#43464B" background-video="video/world.mp4" background-video-loop="true" background-video-muted="true"}
 
@@ -421,7 +438,7 @@ The core topic of this course!
 
 ```{r, echo = F}
 library(tidyverse)
-library(hrbrthemes)
+#library(hrbrthemes)
 library(ggthemes)
 library(paletteer)
 library(ggwordcloud)
@@ -801,20 +818,12 @@ How this course is going to work?
 
 ## Teachers
 
-| Dr. Philipp K. Masur |   | Dr. Kaspar Welbers |   | Emma<br>Diel |   | Roan<br>Buma |
-|:---------:|-----------|:---------:|-----------|:---------:|-----------|:---------:|
-| ![](https://dmb-lab.nl/wp-content/uploads/2024/07/AGU5929_Philipp-Masur.jpg) |  | ![](https://dmb-lab.nl/wp-content/uploads/2024/07/AGU5119-Kasper-Welbers.jpg) |  | ![](https://research.vu.nl/files-asset/318853298/_AGU6410.jpg?w=160&f=webp) |  | ![](https://research.vu.nl/files-asset/321701863/_AGU6124.jpg?w=160&f=webp) |
-| Lecturer & Course Coordinator |  | Teacher |  | Teacher |  | Teacher |
-
-## R help desk
-
--   Not everything will work at the first time.
-
--   Because we work with code, tiny mistakes can produce errors.
-
--   If you have any problems related to installing software, running packages or code, or simply an error message you do not understand, you can address the R Help Desk.
-
--   For office hours and how to get in contact with the R Help Desk, consult the course canvas page.
+::: {.people-table}
+| prof. dr. Wouter van Atteveldt |    Gianni Quaedvlieg |     dr. Kasper Welbers |    dr. Sophia Gil-Clavel |  dr. Alberto López Ortega |
+|:---------:|:---------:|:---------:|:---------:|:---------:|
+| ![](img/wouter_scaled.png) |   ![](img/gianni_scaled.jpg) |  ![](img/kasper.jpg) |   ![](https://assets-us-01.kc-usercontent.com/d8b6f1f5-816c-005b-1dc1-e363dd7ce9a5/c26da8f9-5a95-4069-a141-edeef590f5b7/Interview%20Sofia%20%281%29.jpg) |  ![](https://puredataprod.azureedge.net/5c26bb17-5425-45d6-b263-42916550b6fa.jpg) | 
+| Lecturer & <br/> Course Coordinator |  Teacher & <br/> Workgroup Coordinator|   Teacher |   Teacher | Teacher |
+:::
 
 ## Information and Materials
 
@@ -822,7 +831,7 @@ How this course is going to work?
 ::: {.column width="45%"}
 The major hub for this course is the following website:
 
--   <https://masurp.github.io/VU_CADC/>
+-   <https://vanattevelt.com/VU_CADC/>
 
 Communication and assignment submission via Canvas:
 
@@ -839,11 +848,11 @@ Communication and assignment submission via Canvas:
 
 ## Course Schedule
 
-![](img/approaches1.png)
+![](img/schedule1.png)
 
 ## Course Schedule
 
-![](img/approaches3.png)
+![](img/schedule2.png)
 
 ## Attendance
 
@@ -863,13 +872,8 @@ After the first two cycles, there will be a written exam (**40% of the final gra
 
 <br>
 
--   The exam will consist of \~36 multiple choice questions and \~8 open-ended questions
-
 -   Exam questions will be based on **all material** discussed in the first two cycles, including lecture content, class materials, and required readings
 
--   Example questions will be provided throughout the course
-
--   Please register for the exam via VUweb
 
 ## Homework Assignments
 
@@ -877,21 +881,23 @@ After each week, students are required to hand in a "homework assignment", which
 
 <br>
 
+-   Assignment 1 and 3 are pass/fail; assignment 2 and 4 are graded
+
+-   All assignments are in teams of two students --> Create a team on Canvas before submitting!
+
 -   Each week's assignment requires students to apply the methods they have learned to a new data set.
 
 -   Students will receive an RMarkdown template for their code and the respective data set(s), explanations for how to use these templates will be providee in the practical sessions and via Canvas.
 
--   Students are required to hand in the **RMarkdown file** (.rmd) and a compiled **html document** (.html) on Thursday (24:00, hard deadline!) the week after. All homework assignments must be submitted to pass!
-
--   Homework assignment will be graded as follows as *fail*, *pass* or *good*.
+-   Students are required to hand in the **RMarkdown file** (.rmd) and a compiled **html document** (.html) on Monday the week after. All homework assignments must be submitted to pass!
 
 ## Group presentation
 
-In the third cycle, students will be assigned to small working groups in which they independently conduct a research project. A final poster presentation on the 16th of December (most likely 09.00 to 12.00) will be graded per group (**30% of the final grade**).
+In the third cycle, students will be assigned to small working groups in which they independently conduct a research project. A final poster presentation in week 8 will be graded per group (**30% of the final grade**).
 
 <br>
 
-Students are required to hand in the poster (as PDF) and analyses (again .rmd and .html) beforehand (Deadline: 15th of December 2021 at 24:00, hard deadline!)
+Students are required to hand in the poster (as PDF) and analyses (again .rmd and .html) beforehand 
 
 # Questions? {background-color="steelblue"}
 

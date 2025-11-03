@@ -1,7 +1,7 @@
 ---
 title: "Basics of Automated Text Analysis and Dictionary Approaches"
 subtitle: "Week 2: Wrangling Text and Classification with Wordlists"
-author: "Dr. Philipp K. Masur"
+author: "prof. dr. Wouter van Atteveldt & dr. Philipp K. Masur"
 format:
   revealjs: 
     theme: [default, theme.scss]
@@ -14,13 +14,15 @@ format:
         data-background-position: "top right"
         data-background-size: auto
 editor: visual
+editor_options: 
+  chunk_output_type: console
 ---
 
 ##  {background-image="img/britishlibrary.jpg"}
 
 ## Largest encyclopedias in the world
 
-::: columns
+:::::: columns
 ::: {.column width="60%"}
 -   Encyclopedia Britannica
 
@@ -35,7 +37,7 @@ editor: visual
 ::: {.column width="35%"}
 ![Encyclopedia Britannica](https://images.rawpixel.com/image_800/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3B4MTMzMTgwMS1pbWFnZS1rejJlYWxtcC5qcGc.jpg)
 :::
-:::
+::::::
 
 -   Wikipedia
 
@@ -53,7 +55,7 @@ editor: visual
 
 ## Content of this lecture {.smaller}
 
-::: columns
+::::: columns
 ::: {.column width="45%"}
 1.  Basics of Automated Text Analysis
 
@@ -89,7 +91,7 @@ editor: visual
 
 5.  Summary and Conclusion
 :::
-:::
+:::::
 
 # Basics of Text Analysis {background-color="steelblue"}
 
@@ -97,7 +99,7 @@ From raw text to numerical presentations of texts.
 
 ## Basic Text Analysis
 
--   Before we start to classify unlabeled text, we often engage in what we call "basic text analysis"
+-   Before we start to classify unlabeled text, we often engage in what we call "text wrangling"
 
 -   The first goal is find ways to represent texts in numerical frameworks
 
@@ -107,11 +109,7 @@ From raw text to numerical presentations of texts.
 
 ## A challenge at the beginning
 
-
-
-
 ::: {.column width="58%"}
-
 -   Texts are strings composed of words, spaces, numbers, and punctation.
 
 -   Handling this type of complex, at times messy, data requires some thought and effort.
@@ -131,18 +129,13 @@ From raw text to numerical presentations of texts.
 text <- "To be, or not to be: that is the question." 
 print(text)
 ```
-
 :::
-
 
 ::: {.column width="2%"}
 :::
 
-
 ::: {.column width="37%"}
-
 ![](img/text_to_data.jpg)
-
 :::
 
 ## From text to tokens {auto-animate="true"}
@@ -207,7 +200,7 @@ str_split(text,
 
 ## Tokenization
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Separating based on white space or specific "regular expressions" sounds correct intuitively, but is not a very principled approach
 
@@ -221,7 +214,7 @@ str_split(text,
 ::: {.column width="48%"}
 ![](img/tokenization.png)
 :::
-:::
+:::::
 
 ## Understanding tokenization
 
@@ -233,7 +226,7 @@ There are many different R packages for implementing tokenization, e.g., tokeniz
 #| code-line-numbers: true
 #| class-output: output
 library(tokenizers)
-text_data <- tibble(docid = paste0("text", 1:2),
+text_data <- tibble(doc_id = paste0("text", 1:2),
                     author = c("William Shakespeare", "William Wordsworth"), 
                     work = c("Hamlet", "The Tables Turned"),
                     text = c("To be, or not to be: that is the question.", 
@@ -262,14 +255,15 @@ text_data$text |>
 
 <center>
 
-| Type of token | Example                                                                    |
-|:-------------------|:---------------------------------------------------|
-| characters    | "I", "l", "o", "v", "e", "y", "o", "u", "v", "e", "r" ,"y",...             |
-| words         | "I", "love", "you", "very", "much"                                         |
-| sentences     | "I love you very much"                                                     |
-| lines         | "He went to her and said 'I love", "you very much.' She responded quickly" |
-| bi-grams      | "I love", "love you", "you very,"very much"                                |
-| n-grams       | "I love you", "love you very", "you very much"                             |
+| Type of token | Example |
+|:--------------------|:--------------------------------------------------|
+| characters | "I", "l", "o", "v", "e", "y", "o", "u", "v", "e", "r" ,"y",... |
+| subword tokens | "I", "love", "d", "you", "enorm", "ous", "ly" |
+| words | "I", "love", "you", "very", "much" |
+| sentences | "I love you very much" |
+| lines | "He went to her and said 'I love", "you very much.' She responded quickly" |
+| bi-grams | "I love", "love you", "you very,"very much" |
+| n-grams | "I love you", "love you very", "you very much" |
 
 </center>
 
@@ -326,7 +320,7 @@ hcandersen_en |>
 
 ## The "tidytext" package
 
-::: columns
+:::::: columns
 ::: {.column width="38%"}
 -   In this course, we will use the package `tidytext`, whose core data format is a regular data frame where each row is a word
 
@@ -352,8 +346,7 @@ tokens <- text_data|>
 print(tokens, n = 20)         
 ```
 :::
-:::
-
+::::::
 
 ## From tokens to numbers
 
@@ -361,12 +354,9 @@ print(tokens, n = 20)
 
 ![](img/text_as_data/text_07.png)
 
-
-
-
 ## How to present text numerically using "tidytext"?
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 -   The simplest approach is to count how many times each unique token is included in each text
 
@@ -385,12 +375,11 @@ print(tokens, n = 20)
 #| code-line-numbers: true
 #| class-output: output
 tokens |>
-  group_by(docid, word) |>   
   summarise(n = n()) |>
   arrange(-n)
 ```
 :::
-:::
+:::::
 
 ## The document-term matrix (DTM)
 
@@ -405,7 +394,7 @@ tokens |>
 #| code-line-numbers: true
 #| class-output: output
 tokens |>
-  group_by(docid, word) |>          # <-- group by document id and word
+  group_by(doc_id, word) |>          # <-- group by document id and word
   summarise(n = n()) |>             # <-- summarize number of words per document
   pivot_wider(names_from = word,    # <-- transform from long to wide
               values_from = n) %>%  
@@ -434,14 +423,14 @@ tokens |>
 #| output-location: fragment
 library(sotu)
 sotu_text <- bind_cols(sotu_meta, text = sotu_text) |>  # <-- bind texts and meta data
-  rename(docid = X) |>                                  # <-- rename unique identifier
+  rename(doc_id = X) |>                                  # <-- rename unique identifier
   as_tibble()                                           # <-- transform to tidy format
 print(sotu_text, n = 25)
 ```
 
 ## A speech by Barack Obama in 2009
 
-::: columns
+:::::: columns
 ::: {.column width="80%"}
 ```{r, R.options = list(width = 120)}
 #| echo: true
@@ -462,11 +451,11 @@ sotu_text |>
 ::: {.column width="18%"}
 ![](https://upload.wikimedia.org/wikipedia/commons/2/2b/Official_portrait_of_Barack_Obama_%28cropped%29.jpg)
 :::
-:::
+::::::
 
-## The DTM as a sparse matrix
+## The DTM as a matrix
 
--   We can use the function `cast_dfm()` to transforming the tidy "one-term-per-document-per-row" into a document-term (feature) matrix as used in the quite commonly used `quanteda` package
+-   We can `pivot` the long "one-term-per-document-per-row" into a wide document-term matrix:
 
 ```{r, R.options = list(width = 120)}
 #| echo: true
@@ -475,12 +464,17 @@ sotu_text |>
 #| class-output: output
 tidy_text <- sotu_text |>
   unnest_tokens(word, text) |>                         # <-- tokenize into words and tidy format
-  group_by(docid, word) |>                             # <-- group by document id and words
+  group_by(doc_id, word) |>                             # <-- group by document id and words
   summarise(n = n()) |>                                # <-- summarize number of words per document
   ungroup()                                            # <-- ungroup the data set (to be sure)
-dfm_text <- tidy_text |> 
-  cast_dfm(document = docid, term = word,  value = n)  # <-- create document-term matrix
-dfm_text
+
+dfm <- tidy_text |> 
+  pivot_wider(names_from=word, values_from=n, values_fill=0)
+dfm
+
+#dfm_text <- tidy_text |> 
+#  cast_dfm(document = doc_id, term = word,  value = n)  # <-- create document-term matrix
+#dfm_text
 ```
 
 ## Sparsity
@@ -489,19 +483,22 @@ dfm_text
 
 -   More technically, a set of numbers (e.g. vector, matrix, etc.), is considered **sparse** when a high percentage of the values are assigned a constant default value (e.g. zero)
 
--   Sparsity creates some problems:
+-   Representing all the numbers including zeroes is a 'dense' representation,
+    which is very memory inefficient
+
+-   In general, sparsity creates some problems:
 
     -   Increase in model complexity (leads to more coefficients/features being included in the model)
     -   Risk for overfitting: With too many features, models tend to fit the noise in the data and not generalize well
     -   Size of the data set: Leads to computationally expensive procedures
 
-## Tidy text format is less sparse
+## Tidy text format is a 'sparse format'
 
--   The tidy text format is considerably less sparse as it doesn't include any zeros (there are no rows for words that are not included in the document!)
+-   The tidy text format is considerably a 'sparse representation' as it doesn't include any zeros (there are no rows for words that are not included in the document!)
 
--   Can speed up computations, but also allows us to stay within the framework established by the `tidyverse`
+-   Can speed up computations, and allows us to stay within the framework established by the `tidyverse`
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ```{r}
 #| echo: true
@@ -520,14 +517,14 @@ tidy_text |>
 #| code-line-numbers: true
 #| class-output: output
 # Cells in the DTM format
-length(dfm_text) * nrow(dfm_text)
+ncol(dfm) * nrow(dfm)
 
 # Cells in the tidy format
 length(tidy_text) * nrow(tidy_text)
 
 ```
 :::
-:::
+:::::
 
 ## "Bag-of-Words" Approach
 
@@ -553,7 +550,7 @@ sotu_tokens <- sotu_text |>
 frequencies <- sotu_tokens |>          
   group_by(word) |>                                     # <-- group by word
   summarize(termfreq=n(),                               # <-- computer overall occurrences of a word
-            docfreq=length(unique(docid)),              # <-- number of speeches in which it occurs
+            docfreq=length(unique(doc_id)),              # <-- number of speeches in which it occurs
             relfreq=(docfreq/nrow(sotu_text))*100) |>   # <-- relative occurrence in all speeches
   arrange(-termfreq, -docfreq)                          # <-- sort results
 head(frequencies, n = 8) 
@@ -561,7 +558,7 @@ head(frequencies, n = 8)
 
 ## The (un-)avoidable wordcloud
 
-::: columns
+:::::: columns
 ::: {.column width="48%"}
 -   One of the most famous text visualizations is the word cloud, an image where each word is displayed in a size that is representative of its frequency.
 
@@ -592,7 +589,7 @@ frequencies |>
   theme_void(base_size = 15)
 ```
 :::
-:::
+::::::
 
 ## Alternative (better?) visualization
 
@@ -726,7 +723,7 @@ sotu_text |>
   mutate(word = textstem::lemmatize_words(word)) |>
   group_by(word) |>
   summarize(termfreq=n(), 
-            docfreq=length(unique(docid)),
+            docfreq=length(unique(doc_id)),
             relfreq=docfreq/nrow(sotu_text)) |>
   slice_max(termfreq, n=50) |> 
   ggplot() + 
@@ -796,7 +793,7 @@ Using fixed set of terms per concept to automatically code texts.
 
 ## What are deductive approaches?
 
-::: columns
+:::::: columns
 ::: {.column width="58%"}
 -   Quite old technique of content analysis (since 60s)
 
@@ -817,7 +814,7 @@ Using fixed set of terms per concept to automatically code texts.
 ::: {.column width="40%"}
 ![](img/timeline/Slide2.png)
 :::
-:::
+::::::
 
 ## Text Classification Pipeline Using Dictionaries
 
@@ -841,7 +838,7 @@ Using fixed set of terms per concept to automatically code texts.
 options(width = 250)
 library(ccsamsterdamR)
 tidy_kwic(sotu_text, "terror", window = 5) |>
-  select(pre:docid, president, year) |>
+  select(pre:doc_id, president, year) |>
   head(n = 18)
 ```
 
@@ -849,7 +846,7 @@ tidy_kwic(sotu_text, "terror", window = 5) |>
 
 -   For this example, we are going to use the NRC word-emotion association lexicon (Mohammad & Turney, 2013)
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ```{r}
 #| echo: true
@@ -873,7 +870,7 @@ nrc %>%
   tally()                # <-- count words
 ```
 :::
-:::
+:::::
 
 ## Feature Engineering for dictionary approaches
 
@@ -900,7 +897,7 @@ sotu_dict2 <- sotu_text |>
 
 ## The Actual Dictionary Analysis
 
-::: columns
+::::: columns
 ::: {.column width="45%"}
 -   We use the text corpus containing all speeches
 
@@ -930,7 +927,7 @@ sotu_emotions  |> filter(!is.na(sentiment)) |> nrow()
 sotu_emotions2 |> filter(!is.na(sentiment)) |> nrow() 
 ```
 :::
-:::
+:::::
 
 ## Descriptive analyses with the new created dataset
 
@@ -960,7 +957,7 @@ library(ggridges)
 
 # Summarize data
 sotu_plot_data <- sotu_emotions2 |>
-  group_by(docid, sentiment) |>
+  group_by(doc_id, sentiment) |>
   summarize(n = n()) |>
   mutate(prop = n/sum(n))
 sotu_plot_data
@@ -982,7 +979,7 @@ library(ggridges)
 
 # Summarize data
 sotu_plot_data <- sotu_emotions2 |>
-  group_by(docid, sentiment) |>   
+  group_by(doc_id, sentiment) |>   
   summarize(n = n()) |>            
   mutate(prop = n/sum(n)) |>       
   filter(!is.na(sentiment))        
@@ -991,10 +988,10 @@ sotu_plot_data <- sotu_emotions2 |>
 ggplot() +
  geom_line(data = sotu_plot_data,  
            aes(x = sentiment, y = prop*100, 
-               group = docid), 
+               group = doc_id), 
            linewidth = .5,
            alpha = .05, color = "grey50")+
- geom_line(data = sotu_plot_data |> filter(docid == 1), 
+ geom_line(data = sotu_plot_data |> filter(doc_id == 1), 
            aes(x = sentiment, y = prop*100, group = 1), 
            linewidth = 2, 
            color = "steelblue", 
@@ -1055,7 +1052,7 @@ ggplot(sotu_emo_time) +
 
 ## Confusion Matrix
 
-::: columns
+::::: columns
 ::: {.column width="40%"}
 ![](img/confusionmatrix.png)
 :::
@@ -1071,7 +1068,7 @@ ggplot(sotu_emo_time) +
 
 -   Alternative: Cronbach's Alpha (but often seen as too strict)
 :::
-:::
+:::::
 
 ## Typical validity/performance scores
 
@@ -1089,7 +1086,7 @@ ggplot(sotu_emo_time) +
 
 ## Performance scores
 
-::: columns
+::::: columns
 ::: {.column width="35%"}
 ![](img/confusionmatrix2.png)
 :::
@@ -1099,7 +1096,7 @@ ggplot(sotu_emo_time) +
 
 -   Can be used to compare the performance of different approaches!
 :::
-:::
+:::::
 
 <br>
 
@@ -1142,7 +1139,7 @@ Studies that used the dictionary approach
 
 ## Example 1: Sourcing Pandemic News (Mellado et al)
 
-::: columns
+::::: columns
 ::: {.column width="70%"}
 -   The study analyzes the sources and actors present in more than 940,000 posts on COVID-19 published in the 227 Facebook, Instagram, and Twitter accounts of 78 sampled news outlets between January 1 and December 31 of 2020
 
@@ -1156,7 +1153,7 @@ Studies that used the dictionary approach
 ::: {.column width="30%"}
 ![](https://images.pexels.com/photos/3902732/pexels-photo-3902732.jpeg)
 :::
-:::
+:::::
 
 [Mellado et al., 2021]{style="font-size:0.75em;"}
 
@@ -1182,7 +1179,7 @@ Studies that used the dictionary approach
 
 ## Example 2: Political migration on social media
 
-::: columns
+::::: columns
 ::: {.column width="65%"}
 -   Heidenreich and colleagues (2019), analyzed migration discourses in the Facebook accounts of political actors (n=1702) across six European countries (Spain, UK, Germany, Austria, Sweden and Poland)
 
@@ -1194,13 +1191,13 @@ Studies that used the dictionary approach
 ::: {.column width="35%"}
 ![](https://images.pexels.com/photos/6168/hands-woman-laptop-notebook.jpg)
 :::
-:::
+:::::
 
 [Heidenreich et al., 2019]{style="font-size:0.75em;"}
 
 ## Example 2: Methods
 
-::: columns
+:::::: columns
 ::: {.column width="55%"}
 -   Downloaded textual data for all migration-related posts (n = 24,578) of members of parliaments (n = 1702) in six countries
 
@@ -1219,7 +1216,7 @@ Studies that used the dictionary approach
 
 -   Computed sentiment for each document by calculating as the sum of the scores for all words bearing positive sentiment minus the sum of all scores from negative words, divided by the number of words.
 :::
-:::
+::::::
 
 ## Example 2: Results - Visibility
 
@@ -1283,17 +1280,16 @@ What have we learned?
 
 ##  {background-image="img/britishlibrary.jpg"}
 
-
 ## Next week
 
 ::: {.column width="45%"}
-- Introduction to supervised machine learning
+-   Introduction to supervised machine learning
 
-- Using neural networks for text classification
+-   Using neural networks for text classification
 
-- The idea of deep learning 
+-   The idea of deep learning
 
-- Better word representations using word-embeddings
+-   Better word representations using word-embeddings
 :::
 
 ::: {.column width="5%"}
@@ -1301,10 +1297,7 @@ What have we learned?
 
 ::: {.column width="45%"}
 ![](img/vectorspace.jpg)
-
-
 :::
-
 
 ## Required Reading
 

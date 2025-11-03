@@ -40,7 +40,7 @@ In the third part of the course, students will work on their own research projec
 #### Lecture: Introduction to Computational Methods in Communication Science
 
 - Slides Lecture 1:
-    - [Download Slides](slides/01_introduction_2023.html)
+    - [Download Slides](slides/01_introduction_2023.html) ([PDF](slides/CADC_slides1.pdf))
 
 #### Practical Session 1: Data Wrangling
 
@@ -79,7 +79,7 @@ In the third part of the course, students will work on their own research projec
 #### Lecture: Automated Text Analysis and Dictionary Approaches
 
 - Slides Lecture 2:
-    - [Download Slides](slides/02_textanalysis_2023.html)
+    - [Download Slides](slides/02_textanalysis_2023.html) ([PDF](slides/CADC_slides2.pdf))
 
 #### Practical Session 1
 

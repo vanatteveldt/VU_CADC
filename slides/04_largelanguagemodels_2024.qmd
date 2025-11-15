@@ -1,7 +1,7 @@
 ---
 title: "Transformers and Large Language Models"
 subtitle: "Week 4: Bert, Llama, GPT, and Co"
-author: "Dr. Philipp K. Masur"
+author: "prof. dr. Wouter van Atteveldt & dr. Philipp K. Masur"
 format:
   revealjs: 
     theme: [default, theme.scss]
@@ -14,6 +14,8 @@ format:
         data-background-position: "top right"
         data-background-size: auto
 editor: visual
+editor_options: 
+  chunk_output_type: console
 ---
 
 ##  {background="#43464B" background-image="img/GPT_viz_imagination.jpg"}
@@ -34,7 +36,7 @@ editor: visual
 
 -   A lot of different steps...
 
--   Training takes a lot of data and time... and performance was still somewhat
+-   Training takes a lot of data and time... and performance was still not fantastic
 
 ```{r, echo = F}
 library(tidyverse)
@@ -105,7 +107,7 @@ glue('Classify this scientific abstract: {abstract}
 
 ## Content of this Lecture {.smaller}
 
-::: columns
+:::::: columns
 ::: {.column width="45%"}
 1.  Machine Learning vs. Deep Learning
 
@@ -154,7 +156,7 @@ glue('Classify this scientific abstract: {abstract}
 
     5.3. Conclusion
 :::
-:::
+::::::
 
 # Machine Learning vs. Deep Learning {background-color="steelblue"}
 
@@ -219,7 +221,7 @@ glue('Classify this scientific abstract: {abstract}
 
 ## Overview of the architecture
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 -   The figure on the right represent an abstract overview of a transformer's architecture
 
@@ -241,7 +243,7 @@ glue('Classify this scientific abstract: {abstract}
 ::: {.column width="40%"}
 ![](img/transformer_architecture.png)
 :::
-:::
+:::::
 
 ## Basic Encoder-Decoder Framework (for Translation)
 
@@ -337,7 +339,7 @@ glue('Classify this scientific abstract: {abstract}
 
 <center>
 
-::: columns
+:::::::::: columns
 ::: {.column width="10%"}
 ![](https://cdn.prod.website-files.com/63da3362f67ed649a19489ea/65a762d88d34c9b08de34039_659f1e3a57ce506fbcc81b42_who%2520owns%2520chatgpt_logo.png)
 :::
@@ -355,7 +357,7 @@ glue('Classify this scientific abstract: {abstract}
 :::
 
 ::: {.column width="10%"}
-![](https://upload.wikimedia.org/wikipedia/en/1/1f/LowRes_80dpi_Mistral_AI_Logo.png)
+![](https://cdn.deepseek.com/logo.png?x-image-process=image%2Fresize%2Cw_1920)
 :::
 
 ::: {.column width="10%"}
@@ -365,7 +367,7 @@ glue('Classify this scientific abstract: {abstract}
 ::: {.column width="10%"}
 ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgg06dhS6iRpIv8hvyonlwncW-RC5n59E8vhaWRgIVqTP-Z1AbTBDtdJsX8ClDILimlGWlRAIORuZn8349TfUFmgqYyCRcoctTvNC_Kv70z41hCKd-0Fy4Ic4EgKyY0LxQ5rDt1eXi3jvEcTxgTC62glTl4e5Cffge50iiF0fxCBqmq9v-u7KTfIL4Lxb0/s1600/Gemma_social.png)
 :::
-:::
+::::::::::
 
 </center>
 
@@ -397,6 +399,15 @@ glue('Classify this scientific abstract: {abstract}
 
 ![Source: Wikipedia](img/gpt-series.png)
 
+## Now what does that actually mean...?
+
+![Source: Wikipedia](img/marenostrum.jpg)
+
+
+## Overview of the GPT-series by OpenAI
+
+![Source: Wikipedia](img/gpt-series-training.png)
+
 # A Peek into the Architecture of GPT {.centered background-color="steelblue"}
 
 ## Next-token-Prediction based on input text
@@ -405,16 +416,12 @@ glue('Classify this scientific abstract: {abstract}
 
 ## Intricate Meaning of Words
 
-
 ![](img/harry1.png)
-
 
 ## Intricate Meaning of Words
 
-
 ![](img/harry2.png)
 
-    
 ## Core Idea: Better Encoding
 
 -   Based on static word-embeddings (that we discussed in the last lecture), the word "Harry" would get the same embeddings vector, even though we clearly see that they refer to different persons
@@ -533,7 +540,6 @@ glue('Classify this scientific abstract: {abstract}
 
 -   At times, zero-shot classification works well as the model is not too tied to the examples
 
-
 ## Overview of classification without training
 
 ![](img/zero-shot.png)
@@ -610,7 +616,7 @@ classification_task <- map(codebook, llm_message)
 ## Zero-Shot Classification: Sequential Prompting
 
 ```{r}
-#save(results_llama, file = "slides/results/results_llama.RData")
+#save(results_llama, file = "results/results_llama.RData")
 load("results/results_llama.RData")
 ```
 
@@ -678,12 +684,12 @@ predict_llama |>
 
 ## Testing with other models
 
-::: columns
+::::: columns
 ::: {.column width="48%"}
 ```{r, echo = F}
-#save(predict_nn, file = "slides/results/predict_nn.RData")
+#save(predict_nn, file = "results/predict_nn.RData")
 load("results/predict_nn.RData")
-#save(predict_gpt, file = "slides/results/predict_gpt.RData")
+#save(predict_gpt, file = "results/predict_gpt.RData")
 load("results/predict_gpt.RData")
   
 ```
@@ -696,21 +702,9 @@ Our neural network from last week:
 #| code-line-numbers: true
 #| class-output: output
 # Create recipe
-rec <- recipe(label ~ text, 
-              data = science_data) |>               
-  step_tokenize(text, 
-                options = list(strip_punct = T,             
-                              strip_numeric = T)) |>       
-  step_stopwords(text, language = "en") |>                        
-  step_tokenfilter(text, min_times = 20, 
-                   max_tokens = 1000) |>                
-  step_tf(all_predictors()) |> 
-  step_normalize(all_predictors())   
+library(tidymodels)
 
-# Create workflow
-ann_workflow <- workflow() |>
-  add_recipe(rec_norm) |>    
-  add_model(nnet_spec)
+load("results/m_ann.Rdata")
 
 # Create predict table
 predict_nn <- predict(m_ann, test_data) |> 
@@ -753,7 +747,7 @@ predict_gpt <- test_data |>
                                        predicted == 3 ~ "statistics")))
 ```
 :::
-:::
+:::::
 
 ## Comparison
 
@@ -795,7 +789,7 @@ bind_rows(
 
 ## Examples in the literature
 
-::: columns
+::::: columns
 ::: {.column width="80%"}
 -   Baluff et al. (2023) investigated a recent case of media capture, a mutually corrupting relationship between political actors and media organizations.
 
@@ -807,7 +801,7 @@ bind_rows(
 ::: {.column width="20%"}
 ![](https://upload.wikimedia.org/wikipedia/commons/8/82/Sebastian_Kurz_%282018-02-28%29_%28cropped%29.jpg)
 :::
-:::
+:::::
 
 ## Methods
 
@@ -861,29 +855,27 @@ tibble(model = c("ELMo", "BERT-Large", "GPT-2", "Megatron-LM", "T5", "Turing NLG
 
 ## Performance depends strongly on scale
 
-
-
 ![Kaplan et al, 2020](img/scaling_law.png)
 
-- Performance depends strongly on scale, weakly on model shape
+-   Performance depends strongly on scale, weakly on model shape
 
-- Model performance is mostly related toscale, which consists of three factors: 
+-   Model performance is mostly related toscale, which consists of three factors:
 
-  - the number of model parameters (excluding embeddings)
-      
-  - the size of the dataset
-      
-  - the amount of compute used for training
-      
-- Within reasonable limits, performance depends very weakly on other architectural hyperparameters such as depth vs. width
+    -   the number of model parameters (excluding embeddings)
+
+    -   the size of the dataset
+
+    -   the amount of compute used for training
+
+-   Within reasonable limits, performance depends very weakly on other architectural hyperparameters such as depth vs. width
 
 ## Environmental Impact
 
-![](https://hai.stanford.edu/sites/default/files/inline-images/AIIndex_2023_StateofAI_Blog_4.jpg)
+![](https://web.archive.org/web/20250209195421if_/https://hai.stanford.edu/sites/default/files/inline-images/AIIndex_2023_StateofAI_Blog_4.jpg)
 
 ## Ethical considerations
 
--   Training large language models requires significant computational resources, contributing to a substantial carbon footprint. 
+-   Training large language models requires significant computational resources, contributing to a substantial carbon footprint.
 
 -   LLMs can inherit and perpetuate biases present in their training data, which can result in the generation of biased or unfair content, reflecting and potentially amplifying societal biases and stereotypes.
 
@@ -891,9 +883,7 @@ tibble(model = c("ELMo", "BERT-Large", "GPT-2", "Megatron-LM", "T5", "Turing NLG
 
 -   The fact that some LLMs are developed, trained, and employed behind closed doors causes yet another ethical dilemma in using them!
 
-
 ## Reminder: Guidelines
-
 
 ![](img/ethical_guidelines.png)
 
@@ -906,22 +896,17 @@ tibble(model = c("ELMo", "BERT-Large", "GPT-2", "Megatron-LM", "T5", "Turing NLG
 -   Yet, large language models can contain biases or even hallucinate!
 
     -   Validation, validation, validation!
-    
+
 -   Also: We see already that more and more content online is AI-based. What does it mean if in the future, LLMs are trained on their own content?
 
-::: {layout="[32, 32, 32]"}
-![A.I (Steven Spielberg)](https://s3.amazonaws.com/static.rogerebert.com/uploads/review/primary_image/reviews/great-movie-ai-artificial-intelligence-2001/EB20110707REVIEWS08110709988AR.jpg)
 
-![Her (Spike Jones)](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ea5cab25137457.563425fa7c93f.png)
-
-![Ex Machina (Alex Garland)](https://www.azcentral.com/gcdn/-mm-/8595b75e3791fcb4aef999b94940f74898e5ea59/c=3-0-1591-897/local/-/media/2015/04/22/Phoenix/Phoenix/635653113360425789-alicia-vikander.jpg)
-:::
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ea5cab25137457.563425fa7c93f.png)
 
 ## And it doesn't stop here...
 
 -   Large language models like "llava" can also identify and describe images...
 
-::: columns
+::::: columns
 ::: {.column width="28%"}
 ![](img/england.jpeg)
 :::
@@ -937,7 +922,7 @@ llm_message("Describe this picture? Can you guess where it was made?",
   chat(ollama(.model = "llava", .temperature = 0))
 ```
 :::
-:::
+:::::
 
 # Thank you for your attention! {background-color="steelblue"}
 

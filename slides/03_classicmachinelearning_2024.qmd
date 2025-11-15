@@ -14,6 +14,8 @@ format:
         data-background-position: "top right"
         data-background-size: auto
 editor: visual
+editor_options: 
+  chunk_output_type: console
 ---
 
 {{< video https://youtu.be/Tsvxx-GGlTg?si=OcwjA1ktqX9TUK3c width="100%" height="100%" >}}
@@ -42,7 +44,7 @@ editor: visual
 
 ## Content of this lecture {.smaller}
 
-::: columns
+::::: columns
 ::: {.column width="45%"}
 1.  What is Machine Learning?
 
@@ -94,11 +96,11 @@ editor: visual
 
 6.  Summary and Conclusion
 :::
-:::
+:::::
 
 # What is machine learning? {background-color="steelblue"}
 
- Understanding Supervised Machine Learning Approaches
+Understanding Supervised Machine Learning Approaches
 
 ## Deductive vs. inductive approaches
 
@@ -130,7 +132,7 @@ editor: visual
 
 ## Statistical Modeling vs. Supervised Machine learning
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   **Machine learning**, many people joke, is nothing but a fancy name for **statistics**.
 
@@ -142,11 +144,11 @@ editor: visual
 ::: {.column width="50%"}
 ![Source: Demetri Pananos/stackoverflow](img/stats_vs_ml.png)
 :::
-:::
+:::::
 
 ## Statistical Modeling
 
-::: columns
+:::::: columns
 ::: {.column width="50%"}
 -   Is about understanding the relationship between one (or several) predictor(s) and an outcome variable
 
@@ -178,11 +180,11 @@ ggplot(data, aes(x, y)) +
   theme_classic() 
 ```
 :::
-:::
+::::::
 
 ## Machine Learning
 
-::: columns
+:::::: columns
 ::: {.column width="50%"}
 -   Machine learning less about not understanding, but about maximizing prediction
 
@@ -212,7 +214,7 @@ ggplot(data, aes(x, y)) +
   geom_vline(xintercept = 5, linetype = "dashed", color = "grey")
 ```
 :::
-:::
+::::::
 
 ## Differences in language
 
@@ -248,7 +250,7 @@ ggplot(data, aes(x, y)) +
 
 -   Essentially, we want the model to have a good fit to the data, but we also want it to not optimize on things that are specific to the training data set
 
-- Let's try exemplify over vs. underfit with some simulated data!
+-   Let's try exemplify over vs. underfit with some simulated data!
 
 ## Examplifying over- and underfit
 
@@ -327,7 +329,6 @@ ggplot(NULL, aes(x = x, y = y)) +
 -   As models (almost) always overfit, performance on only training data is not a good indicator of the real quality of the classifier
 
 -   The standard solution is to split the labeled data into a training and test data sets: We train the algorithm on one part and then evaluate its performance on the held-out part
-
 :::
 
 ::: {.column width="5%"}
@@ -339,14 +340,13 @@ ggplot(NULL, aes(x = x, y = y)) +
 
 -   In more elaborate scenarios, we distinguish in training, validation, and testing sets
 
-
 ## Integrating testing in the pipeline
 
 ![](img/testing_training.png)
 
 ## Testing = Validation
 
-::: columns
+::::: columns
 ::: {.column width="70%"}
 -   Remember how we validated dictionary approaches?
 
@@ -363,12 +363,11 @@ ggplot(NULL, aes(x = x, y = y)) +
 ::: {.column width="30%"}
 ![](img/validation_ml.png)
 :::
-:::
+:::::
 
 # Text Classification with Artificial Neural Networks {background-color="steelblue"}
 
 Translating the Architecture of the Brain into Algorithmic Processing
-
 
 ## Overview of different ML algorithms
 
@@ -379,8 +378,6 @@ Translating the Architecture of the Brain into Algorithmic Processing
 ## Data: Predicting Discipline From Abstracts
 
 -   For the remainder of this lecture, I will exemplify different approaches to supervised text classification using a data set that contains the title and abstract of scientific articles and their discipline.
-
-
 
 ```{r,  R.options = list(width = 120)}
 #| echo: true
@@ -397,10 +394,9 @@ science_data |>
 
 ## Data: Overview of disciplines
 
-- The data contains articles from computer science, physics, and statistics
+-   The data contains articles from computer science, physics, and statistics
 
-- Our goal is to find a neural network archtecture that can label abstracts with these disciplines sufficiently well
-
+-   Our goal is to find a neural network archtecture that can label abstracts with these disciplines sufficiently well
 
 ```{r}
 #| echo: true
@@ -513,7 +509,7 @@ rec |>
 
 ## Workflow in Tidymodels
 
-::: columns
+:::::: columns
 ::: {.column width="70%"}
 -   The collection `tidymodels` contains a variety of packages that facilitates and streamlines machine learning in R
 
@@ -532,7 +528,7 @@ rec |>
 ::: {.column width="28%"}
 ![](https://rviews.rstudio.com/2020/04/21/the-case-for-tidymodels/tidymodels.png)
 :::
-:::
+::::::
 
 ## Setting up a recipe for our example
 
@@ -634,7 +630,7 @@ rec_norm <- rec |>
 
 ## How does a neural network work?
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ![](img/neuralnetwork2.png)
 :::
@@ -649,16 +645,15 @@ rec_norm <- rec |>
 
 -   In other words, input data are passed through layered transformations until an output is reached
 :::
-:::
+:::::
 
 ## The Neuron as Generalized Linear Model
 
 -   First, the value of each input neuron is multiplied by so-called "weight" (`w1`, `w2`, `w3`), which could be regarded as the strength of connection between two neurons
 
+-   Second, the neuron adds up the values of every input neuron from the previous column it is connected to (here `x1`, `x2`, and `x3`)
 
-- Second, the neuron adds up the values of every input neuron from the previous column it is connected to (here `x1`, `x2`, and `x3`)
-
--  Third, a bias value may be added (e.g., to regularize the network)
+-   Third, a bias value may be added (e.g., to regularize the network)
 
 -   After all those summations, the neuron finally applies a function called "activation function" to the obtained value
 
@@ -666,7 +661,7 @@ rec_norm <- rec |>
 
 ## The activation function
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   The activation function serves to turn the total value calculated to a number between 0 and 1
 
@@ -678,7 +673,7 @@ rec_norm <- rec |>
 ::: {.column width="50%"}
 ![Source: AI Wiki](img/activation-functions.jpg)
 :::
-:::
+:::::
 
 ## A multilayer Perceptron for our example
 
@@ -710,23 +705,17 @@ rec_norm <- rec |>
 
 ## What did the neural network learn?
 
-::: columns
+::::: columns
 ::: {.column width="55%"}
 -   It is hard to imagine how the network has learned that a certain combination of words corresponds to a certain label.
 
 -   In fact, we can only speculate that it might capture certain meaning by co-occurence of words, e.g., that certain words are representing machine learning and machine learning, in turn, is most likely to be within "computer science"
-
 :::
 
 ::: {.column width="40%"}
-
-
-
 ![](img/neuralnetworkimagine.jpg)
-
 :::
-:::
-
+:::::
 
 ## What a neural network might have learned...
 
@@ -740,7 +729,7 @@ rec_norm <- rec |>
 
 ```{r, echo = F}
 load("results/m_ann.Rdata")
-#save(m_ann, file = "results/m_ann.Rdata")
+
 ```
 
 ```{r, eval = F}
@@ -867,7 +856,7 @@ predict_ann |>
 
 ```{r, echo = F}
 load("results/m_svm.Rdata")
-#save(m_svm, file = "slides/results/m_svm.Rdata")
+#save(m_svm, file = "results/m_svm.Rdata")
 ```
 
 ```{r, eval = F}
@@ -1040,7 +1029,7 @@ wv_similar <- function(wv, target, n=5) {
 }
 ```
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ```{r}
 #| echo: true
@@ -1062,7 +1051,7 @@ wv_similar(wv, wvector(wv, "basketball"))
 wv_similar(wv, wvector(wv, "netherlands"))
 ```
 :::
-:::
+:::::
 
 ## Similarity of entire sentences or texts
 
@@ -1148,7 +1137,6 @@ movies |>
 
 -   Differences remained stable across time.
 
-
 # Text Classification with Word-Embeddings {background-color="steelblue"}
 
 Improving Prediction by Using Word-Embeddings as Input Features
@@ -1177,10 +1165,9 @@ Improving Prediction by Using Word-Embeddings as Input Features
 load("results/mlp_fit.RData")
 ```
 
+-   To fit a neural network based on static word-embeddings (e.g., GloVe), we only need to adapt the recipe.
 
-- To fit a neural network based on static word-embeddings (e.g., GloVe), we only need to adapt the recipe. 
-
-- Here, we do not need to engage in much preprocessing at all:
+-   Here, we do not need to engage in much preprocessing at all:
 
 ```{r, eval=FALSE}
 #| echo: true
@@ -1214,8 +1201,6 @@ mlp_wflow <- workflow()  |>
 mlp_fit <- mlp_wflow |> 
   fit(data = train_data)
 ```
-
-
 
 ```{r, echo = F}
 #| include: true
@@ -1322,7 +1307,6 @@ mlp_param <- extract_parameter_set_dials(mlp_spec)
 # Simple combinatorial design
 mlp_param |> grid_regular(levels = c(hidden_units = 2, penalty = 2, epochs = 2, learn_rate = 2)) 
 ```
-
 
 ## Running the Grid Search
 
@@ -1532,7 +1516,7 @@ How Machine Learning is used in Communication Science
 
 ## Example 2: Electoral news sharing in Mexico
 
-::: columns
+::::: columns
 ::: {.column width="85%"}
 -   de León et al. (2021) explored how elections transform news sharing behaviour on Facebook
 
@@ -1549,7 +1533,7 @@ How Machine Learning is used in Communication Science
 ::: {.column width="15%"}
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/1024px-Flag_of_Mexico.svg.png)
 :::
-:::
+:::::
 
 ## Results
 
@@ -1589,9 +1573,8 @@ Next week, we reach the present!
 
 ## Conclusion and outlook
 
-::: columns
+::::: columns
 ::: {.column width="55%"}
-
 -   Classic machine learning is a useful tool for generalizing from a sample
 
 -   It is very useful to reduce the amount of manual coding needed
@@ -1601,15 +1584,12 @@ Next week, we reach the present!
 -   That said, the field has moved on and innovations are fast-paced these days:
 
     -   Transfer Learning, Attention, Self-Attention.... (Next week!!!)
-    
-::: 
+:::
+
 ::: {.column width="40%"}
-
 ![](https://m.media-amazon.com/images/S/pv-target-images/c1294b151f242ffc3668e3526edd5a781bf18ac04ad25f68a2e48b58c05ef99f._SX1080_FMjpg_.jpg)
-
-
 :::
-:::
+:::::
 
 # Thank you for your attention! {background-color="steelblue"}
 

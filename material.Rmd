@@ -110,7 +110,7 @@ In the third part of the course, students will work on their own research projec
 #### Lecture: Text Classification and Classic Machine Learning
 
 - Slides Lecture 3:
-    - [Download Slides](slides/03_classicmachinelearning_2024.html) 
+    - [Download Slides](slides/03_classicmachinelearning_2024.html) ([PDF](slides/cadc_slides_w3.pdf))
 
 #### Practical Session 1
 
@@ -142,7 +142,7 @@ In the third part of the course, students will work on their own research projec
 #### Lecture: Transformers and Large Language Models
 
 - Slides Lecture 4:
-    - [Download Slides](slides/04_largelanguagemodels_2024.html)
+    - [Download Slides](slides/04_largelanguagemodels_2024.html) ([PDF](slides/cadc_slides_w4.pdf))
 
 #### Practical Session 1
 
@@ -173,14 +173,14 @@ In the third part of the course, students will work on their own research projec
 #### Exam week 
 
 - Date and Time of the Exam
-    - **Date:** 29th November 2024
+    - **Date:** 28th November 2025
     - **Time:** 08:30am
-    - **Location:** t.b.a
+    - **Location:** HG-00B04
     - Make sure to be there on time
     
 - Format
     - The exam will be on **TestVision**
-    - It consists of Multiple Choice Questions & Open Questions
+    - It consists of Multiple Choice Questions 
     - Example questions are provided at the end of all lecture slides
 
 - What do you need to know?

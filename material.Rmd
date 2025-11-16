@@ -184,9 +184,11 @@ In the third part of the course, students will work on their own research projec
     - Example questions are provided at the end of all lecture slides
 
 - What do you need to know?
+    - [Exam Literature and mock exam questions](CADC_mock_exam.pdf)
     - Content of the lectures
-    - The required readings (see lecture slides and Canvas)
-    - The practical sessions will further help to deepen your understanding of the concepts and approaches (e.g., how to interpret results). While you will not be required to write R code in the exam, we expect you to be able to read it and interpret R output.
+    - The required readings
+    - The practical sessions will further help to deepen your understanding of the concepts and approaches (e.g., how to interpret results). 
+    
 
 <br>
 <hr>
